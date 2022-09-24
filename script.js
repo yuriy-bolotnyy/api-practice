@@ -58,8 +58,31 @@ const getDataArray = (callback) => {
     }
 
 const processData = (dataSet) => {
-    log(`><><><><><> process dataset: ${dataSet}`)
+    // log(`><><> 000 <><><> process dataset: ${dataSet}`)
+    startApp(dataSet)
 }
 
 getDataArray(processData)                    
 
+const startApp = (dataSet) => {
+    log(`><><> start app dataset <><><> process dataset: ${dataSet}`)
+    dataSet.forEach(element => {
+        ({id, author, width, height, url, download_url} = element)
+        // Destructure it
+            // author:
+            // 'Alejandro Escamilla'
+            // download_url:
+            // 'https://picsum.photos/id/0/5616/3744'
+            // height:
+            // 3744
+            // id:
+            // '0'
+            // url:
+            // 'https://unsplash.com/photos/yC-Yzbqy7PY'
+            // width:
+            // 5616
+        
+        log(`element > id: ${id} | author: ${author}, width: ${width}, height: ${height}, url: ${url}, download_url: ${download_url}`)
+     
+    });
+}
