@@ -41,15 +41,15 @@ const endpoint = 'https://picsum.photos/v2/list?limit=1000';
 
 let dataSet = []
 
-fetchData(10, endpoint)
-    .then(data => {
-        dataSet = data;
-        // log(`final dataset: ${dataSet}`)
-        // calback(dataSet)
-    });
+// fetchData(10, endpoint)
+//     .then(data => {
+//         dataSet = data;
+//         // log(`final dataset: ${dataSet}`)
+//         // calback(dataSet)
+//     });
 
 const getDataArray = (callback) => {
-    fetchData(10, endpoint)
+    fetchData(1, endpoint)
                     .then(data => {
                         dataSet = data;
                         // log(`final dataset: ${dataSet}`)
@@ -62,7 +62,66 @@ const processData = (dataSet) => {
     startApp(dataSet)
 }
 
-getDataArray(processData)                    
+const imagesDiv = document.querySelector("body > div.images");
+
+// imagesDiv.addEventListener('load', () => {
+//     alert("The images were loaded")
+// })
+
+const addImage = (imgElement) => {
+    
+    imagesDiv.append(imgElement);
+}
+
+const createImage = (url) => {
+    const newImgElement = document.createElement('img');
+    newImgElement.src = url;
+    
+    return newImgElement
+}
+
+const hideElement = (el) => {
+    log('Hiding element: ', el)
+
+    el.style.display="none";
+
+    // log('classlist before:', el.classList)
+    // el.classList.add('hidden');
+    // log('classlist after:', el.classList)
+}
+
+const unhideElement = (el) => {
+    el.style.display="";
+}
+
+const fetchBtn = document.querySelector('div.search > button');
+const fetchProgessSpinner = document.querySelector('div.search >div.progressSpinner');
+
+onFetchBtnPress = () => {
+    log('Fetch button clicked')
+
+    hideElement(fetchBtn)
+    unhideElement(fetchProgessSpinner)
+
+    // setTimeout(unhideElement(fetchBtn), 5000)
+
+    // setTimeout(() => {
+    //     console.log("Delayed for 1 second.");
+    //     hideElement(fetchProgessSpinner)
+    //   }, "5000")
+
+    setTimeout(() => {hideElement(fetchProgessSpinner)}, 7000)
+
+
+
+    getDataArray(processData)  
+
+   
+}
+
+fetchBtn.addEventListener('click', onFetchBtnPress)
+
+
 
 const startApp = (dataSet) => {
     log(`><><> start app dataset <><><> process dataset: ${dataSet}`)
@@ -83,6 +142,18 @@ const startApp = (dataSet) => {
             // 5616
         
         log(`element > id: ${id} | author: ${author}, width: ${width}, height: ${height}, url: ${url}, download_url: ${download_url}`)
+
+        addImage(createImage(download_url))
      
     });
+
+    // window.onload = (event) => {
+    //     console.log('page is fully loaded');
+    // };  
+    
 }
+
+
+
+
+// getDataArray(processData)   
